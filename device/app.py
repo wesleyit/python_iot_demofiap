@@ -1,14 +1,26 @@
 # Importa as funcoes de controle de hardware e de requests HTTP
 from lib_blink import estado_verde, estado_amarelo, estado_vermelho
-from lib_blink import estado_completo, estado_desligado
+from lib_blink import estado_campainha, estado_completo, estado_desligado
+from iron_cache import IronCache
 from time import sleep
-import requests
-
-
-# De qual URL o estado sera obtido?
-url_estado = "http://url.com"
 
 
 def obtem_estado():
-    r = requests.get('url_estado')
-    return(r.text)
+    cache = IronCache(project_id="57e7006d1e0aa6000858dc32",
+                      token="Dcc5Bq9UWP1qtQuERZXF")
+    cache.name = 'IoT_Demo'
+    try:
+        item = cache.get(key="estado")
+    except:
+        item = None
+        return item.value
+
+
+def loop_principal():
+    estado = obtem_estado()
+    eval(estado)()
+
+
+while True:
+    loop_principal
+    sleep(5)
