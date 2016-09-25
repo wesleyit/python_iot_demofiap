@@ -1,0 +1,43 @@
+{% extends "bootstrap/base.html" %}
+{% block title %}IoT Demo FIAP{% endblock %}
+
+{% block content %}
+<style>
+.b12 {
+    width: 500px;
+    height: 3em;
+    font-size: 30px;
+}
+.pagina {
+    margin: auto;
+    text-align: center;
+}
+</style>
+
+<script>
+function post(param) {
+    var form = document.createElement("form");
+    form.setAttribute("method", "post");
+    form.setAttribute("action", "/");
+    var hiddenField = document.createElement("input");
+    hiddenField.setAttribute("type", "hidden");
+    hiddenField.setAttribute("name", "estado");
+    hiddenField.setAttribute("value", param);
+    form.appendChild(hiddenField);
+    document.body.appendChild(form);
+    form.submit();
+}
+</script>
+
+<div class="pagina">
+  <div class="row-fluid">
+  <div class="span12"><span class="b12"><h1>{{ estado }}</h1></span></div><br>
+  <div class="span12"><button class="b12 label label-success" onclick="post('estado_verde')">VERDE</button></div>
+  <div class="span12"><button class="b12 label label-warning" onclick="post('estado_amarelo')">AMARELO</button></div>
+  <div class="span12"><button class="b12 label label-danger" onclick="post('estado_vermelho')">VERMELHO</button></div>
+  <div class="span12"><button class="b12 label label-info" onclick="post('estado_campainha')">CAMPAINHA</button></div>
+  <div class="span12"><button class="b12 label label-primary" onclick="post('estado_completo')">COMPLETO</button></div>
+  <div class="span12"><button class="b12 label label-default" onclick="post('estado_desligado')">DESLIGA</button></div>
+  </div>
+</div>
+{% endblock %}
