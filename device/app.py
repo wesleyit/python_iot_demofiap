@@ -11,16 +11,25 @@ def obtem_estado():
     cache.name = 'IoT_Demo'
     try:
         item = cache.get(key="estado")
-    except:
-        item = None
+        print("Item %s obtido via API") % item
         return item.value
+    except:
+        print("Impossivel obter o item.")
+        return "estado_verde"
 
 
 def loop_principal():
+    print("Atualizando estado...")
     estado = obtem_estado()
+    print("Estado = %s") % estado
     eval(estado)()
 
 
+print("Iniciando loop principal")
+iteracao = 1
 while True:
-    loop_principal
+    print("------------------------------------------------")
+    print("Rodando a iteracao %d") % iteracao
+    loop_principal()
+    iteracao += 1
     sleep(5)
